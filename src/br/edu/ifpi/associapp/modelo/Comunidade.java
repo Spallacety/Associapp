@@ -3,7 +3,8 @@ package br.edu.ifpi.associapp.modelo;
 import java.util.*;
 
 public class Comunidade {
-
+	
+	private String codigo;
 	private String nome;
 	private String tipo;
 	private String cidade;
@@ -14,7 +15,7 @@ public class Comunidade {
 	private String zona;
 	private List<Bens> bens = new ArrayList<>();
 	private int indiceDeSeguranca;
-	private String codigo;
+	
 	
 	public static final String URBANA = "Urbana";
 	public static final String RURAL = "Rural";

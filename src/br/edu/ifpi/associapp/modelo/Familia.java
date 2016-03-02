@@ -5,8 +5,9 @@ import java.util.*;
 public class Familia {
 	
 	private String codigo;
-	private List<Membro> membros = new ArrayList<>();
-	private Membro chefe;
+	private int id_comunidade;
+	private List<Pessoa> membros = new ArrayList<>();
+	private Pessoa chefe;
 	private String descricao;
 	private String situacaoDaCasa;
 	private List<Recursos> recursos = new ArrayList<>();
@@ -18,17 +19,17 @@ public class Familia {
 		this.seguranca = seguranca;
 	}
 	
-	public void addMembro(Membro membro){
+	public void addPessoa(Pessoa membro){
 		this.membros.add(membro);
 	}
 	
 	public void mostraMembros(){
-		for (Membro membro : membros) {
+		for (Pessoa membro : membros) {
 			System.out.println(membro);
 		}
 	}
 
-	public List<Membro> getMembros() {
+	public List<Pessoa> getMembros() {
 		return membros;
 	}
 	

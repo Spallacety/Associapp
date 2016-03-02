@@ -1,34 +1,34 @@
 package br.edu.ifpi.associapp.modelo;
 
-public class Parentesco {
+import br.edu.ifpi.associapp.enums.TipoParentesco;
 
-	public enum Parentescos{
-		PAI, MÃE, FILHO, FILHA, TIO, SOBRINHO, AVÔ, AVÓ, NETO, NETA, MADRASTA, PADRASTO, ENTEADO, ENTEADA;
-	}
+public class Parentesco {
 	
-	private Membro pessoa;
-	private String parentesco;
+	private Pessoa pessoa;
+	private TipoParentesco parentesco;
 	
-	public Parentesco(Membro pessoa, String parentesco){
+	
+	public Parentesco(Pessoa pessoa, TipoParentesco parentesco){
 		this.pessoa = pessoa;
 		this.parentesco = parentesco;
+		
+		
+		new Parentesco(this.pessoa, parentesco);
+		
 	}
 
-	public Membro getPessoa() {
+	public Pessoa getPessoa() {
 		return pessoa;
 	}
-
-	public void setPessoa(Membro pessoa) {
+	public void setPessoa(Pessoa pessoa) {
 		this.pessoa = pessoa;
 	}
 
-	public String getParentesco() {
+	public TipoParentesco getParentesco() {
 		return parentesco;
 	}
-
-	public void setParentesco(String parentesco) {
+	public void setParentesco(TipoParentesco parentesco) {
 		this.parentesco = parentesco;
-	}
-	
+	}	
 	
 }

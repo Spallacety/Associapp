@@ -15,11 +15,11 @@ import br.edu.ifpi.associapp.modelo.Membro;
 
 public class MembroDAOImplemente implements MembroDAO {
 
-	private Connection conn = ConnectionFactory.getConnection();
+	private Connection conn;
 	
 	@Override
 	public Membro inserirMembro(Membro m) {
-		
+		conn = ConnectionFactory.getConnection();
 		
 		try {
 			Statement s = conn.createStatement();
@@ -56,6 +56,7 @@ public class MembroDAOImplemente implements MembroDAO {
 
 	@Override
 	public Membro retornarMembroPorId(int id) {
+		conn = ConnectionFactory.getConnection();
 		Membro m = null;
 		try {
 			String sql = "SELECT * FROM membro WHERE id = " + id;
@@ -84,6 +85,7 @@ public class MembroDAOImplemente implements MembroDAO {
 
 	@Override
 	public void removerMembro(int id) {
+		conn = ConnectionFactory.getConnection();
 		try {
 			Statement s = conn.createStatement();
 			String sql = "DELETE from membro where id = " +id;
@@ -108,8 +110,39 @@ public class MembroDAOImplemente implements MembroDAO {
 
 	@Override
 	public List<Membro> listaMembros() {
+		conn = ConnectionFactory.getConnection();
 		List<Membro> listaMembros = new ArrayList<>();
 		String sql = "SELECT * FROM membro";
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet resultado = stmt.executeQuery(sql);
+			while (resultado.next()) {
+				Membro m = new Membro();
+				m = new Membro();
+				m.setId(resultado.getInt("id"));
+				m.setNome(resultado.getString("nome"));
+				m.setProfissao(resultado.getString("profissao"));
+				m.setRendaMediaMensal(resultado.getDouble("rendaMediaMensal"));
+				listaMembros.add(m);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return listaMembros;
+	}
+
+	@Override
+	public List<Membro> BuscarPorNome(String nome) {
+		conn = ConnectionFactory.getConnection();
+		List<Membro> listaMembros = new ArrayList<>();
+		String sql = "SELECT * FROM membro where nome like '%"+ nome +"%'";
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet resultado = stmt.executeQuery(sql);

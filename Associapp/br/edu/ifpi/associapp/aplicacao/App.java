@@ -6,26 +6,60 @@ import javax.swing.UIManager;
 import br.edu.ifpi.associapp.dao.ComunidadeDAO;
 import br.edu.ifpi.associapp.dao.ComunidadeJDBCDAO;
 import br.edu.ifpi.associapp.enuns.TipoDeComunidadeEnum;
+import br.edu.ifpi.associapp.menus.MenuMembro;
 import br.edu.ifpi.associapp.modelo.Comunidade;
 import br.edu.ifpi.associapp.modelo.Endereco;
 import br.edu.ifpi.associapp.modelo.Familia;
 
 public class App {
+	static ComunidadeDAO dao = new ComunidadeJDBCDAO();
 	
 	public static void main(String[] args) {
-
-		ComunidadeDAO dao = new ComunidadeJDBCDAO();
+		menuPrincipal();
 		
-		String menu = "#### ASSOCIAPP ####\n\n";
-		menu += "1 - Adicionar Comunidade\n"
-				+ "2 - Vizualizar Comunidade\n"
-				+ "3 - Listar as comunidades\n"
-				+ "4 - Remover comnunidade\n"
-				+ "0 - Sair\n";
+	}
+	
+	public static void menuPrincipal() {
+		String menu = "#### ASSOCIAPP ####\n\n"
+				+ "1- Menu comunidade\n"
+				+ "2- Menu Membro\n"
+				+ "0- sair ";
 		
 		while(true){
 			
 			int op = Integer.parseInt(JOptionPane.showInputDialog(menu));
+			switch (op){
+			case 1:
+				menuComunidade();
+				break;
+			case 2:
+				MenuMembro.menuMembro();
+				break;	
+			case 0:
+				JOptionPane.showMessageDialog(null, "Volte Sempre!");
+				break;
+			default:
+				JOptionPane.showMessageDialog(null, "Opção Invalida!");
+				break;
+			}
+			if (op == 0)
+				
+				break;
+			
+			
+		}
+	}
+	
+	public static void menuComunidade() {
+		String submenu ="1 - Adicionar Comunidade\n"
+				+ "2 - Vizualizar Comunidade\n"
+				+ "3 - Listar as comunidades\n"
+				+ "4 - Remover comnunidade\n"
+				+ "0 - Retornar ao menu principal\n";
+		
+		while(true){
+			
+			int op = Integer.parseInt(JOptionPane.showInputDialog(submenu));
 			switch (op){
 			case 1:
 				novaComunidade(dao);
@@ -37,7 +71,7 @@ public class App {
 				listarComunidades(dao);
 				break;
 			case 0:
-				JOptionPane.showMessageDialog(null, "Volte Sempre!");
+				menuPrincipal();
 				break;
 			default:
 				JOptionPane.showMessageDialog(null, "Opção Invalida!");
@@ -49,10 +83,6 @@ public class App {
 			
 		}
 				
-		
-		
-		
-		
 	}
 
 	private static void listarComunidades(ComunidadeDAO dao) {
@@ -65,8 +95,13 @@ public class App {
 	}
 
 	private static void entrarNaComunidade(ComunidadeDAO dao) {
-		Comunidade c = new Comunidade();
-		int id = Integer.parseInt(JOptionPane.showInputDialog("Digite o id da comunidade: "));
+		String texto = "##  VISULIZAR COMUNIDADE  ##\n\n"
+				+ "Digite o numero correspondente a comunidade para entar \n \n";
+		for (Comunidade comu : dao.lista() ) {
+			texto += comu.toString();
+		}
+		int id = Integer.parseInt(JOptionPane.showInputDialog(null,texto));
+		Comunidade c;
 		c = dao.obter(id);
 		String submenu = "Comunidade: " + c.getNome() + "\n\n";
 		submenu += "1 - Adicionar Familia\n"
@@ -139,5 +174,7 @@ public class App {
 		JOptionPane.showMessageDialog(null, "Inseriu com sucesso. Id gerado: "+c.getCodigo()+"!");
 		
 	}
+	
+	
 
 }

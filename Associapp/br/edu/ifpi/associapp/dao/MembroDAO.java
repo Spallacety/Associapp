@@ -10,4 +10,5 @@ public interface MembroDAO {
 	public Membro retornarMembroPorId(int id);
 	public void removerMembro(int id);
 	public List<Membro> listaMembros();
+	public List<Membro> BuscarPorNome(String nome);
 }

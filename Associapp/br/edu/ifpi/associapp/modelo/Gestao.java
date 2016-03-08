@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Gestao {
 	
+	private int id;
+	private int id_comunidade;
 	private String nome;
 	private int inicio;
 	private int fim;

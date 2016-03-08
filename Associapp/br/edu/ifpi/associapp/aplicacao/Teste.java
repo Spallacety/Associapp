@@ -31,13 +31,13 @@ public class Teste {
 		
 			MembroDAO membroDAO = new MembroDAOImplemente();
 			
-//			Membro m = new Membro();
-//			m.setNome("Joana");
-//			m.setSexo('M');
-//			m.setProfissao("Dona do lar");
-//			m.setRendaMediaMensal(300);
-//			
-//			m = membroDAO.inserirMembro(m);
+			Membro m = new Membro();
+			m.setNome("Joana");
+			m.setSexo('M');
+			m.setProfissao("Dona do lar");
+			m.setRendaMediaMensal(300);
+			
+			m = membroDAO.inserirMembro(m);
 //			
 //			m = membroDAO.retornarMembroPorId(2);
 //			System.out.println(m.getNome());
@@ -46,17 +46,17 @@ public class Teste {
 //			
 //			membroDAO.removerMembro(2);
 			
-			List<Membro> listMembros = new ArrayList<>();
-			
-			listMembros = membroDAO.listaMembros();
-			
-			for (Membro m : listMembros) {
-				System.out.println(m.getId());
-				System.out.println(m.getNome());
-				System.out.println(m.getProfissao());
-				System.out.println(m.getRendaMediaMensal());
-			}
-			
+//			List<Membro> listMembros = new ArrayList<>();
+//			
+//			listMembros = membroDAO.listaMembros();
+//			
+//			for (Membro m : listMembros) {
+//				System.out.println(m.getId());
+//				System.out.println(m.getNome());
+//				System.out.println(m.getProfissao());
+//				System.out.println(m.getRendaMediaMensal());
+//			}
+//			
 		}
 	
 

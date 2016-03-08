@@ -28,6 +28,13 @@ public class Membro {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public Membro(String nome, char sexo, String profissao, double renda) {
+		this.nome = nome;
+		this.sexo = sexo;
+		this.profissao = profissao;
+		this.rendaMediaMensal = renda;
+	}
+	
 	public Membro(String nome, Data dataDeNascimento, char sexo, String profissao, SituacaoLaboralEnum situacaoLaboral, double rendaMediaMensal,
 			ReligiaoEnum religiao, TimeDeFutebolEnum timeDeFutebol, GrauDeInstucaoEnum grauDeInstrucao) {
 		this.nome = nome;

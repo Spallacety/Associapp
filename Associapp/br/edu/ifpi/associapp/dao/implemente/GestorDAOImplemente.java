@@ -7,27 +7,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import br.edu.ifpi.associapp.dao.ConnectionFactory;
-import br.edu.ifpi.associapp.dao.MembroDAO;
-import br.edu.ifpi.associapp.modelo.Membro;
+import br.edu.ifpi.associapp.dao.GestorDAO;
+import br.edu.ifpi.associapp.enuns.CargoEnum;
+import br.edu.ifpi.associapp.modelo.Gestor;
 
-public class MembroDAOImplemente implements MembroDAO {
-
+public class GestorDAOImplemente implements GestorDAO{
+	
 	private Connection conn;
 	
 	@Override
-	public Membro inserirMembro(Membro m) {
+	public Gestor inserirGestor(Gestor g) {
 		conn = ConnectionFactory.getConnection();
 		
 		try {
 			Statement s = conn.createStatement();
-			String sql = "INSERT INTO membro(nome, sexo, profissao, rendaMediaMensal) "
-					+ "values('"+ m.getNome()+"', '"+ m.getSexo()+"', '" + m.getProfissao()+ "',"
-					+ m.getRendaMediaMensal() + ");";
+			String sql = "INSERT INTO gestor(id_gestao, id_pessoa, cargo) "
+					+ "values(" + g.getId_gestao()+ ", " + g.getId_pessoa()+ ", '"
+					+g.getCargo()+ "')";
 			
 			System.out.println(sql);
 			s.executeUpdate(sql);
-			System.out.println("Membro inserido com sucesso!!");
+			System.out.println("Gestor inserido com sucesso!!");
 			
 			
 //			ResultSet rs = s.executeQuery("SELECT * FROM membro;" );
@@ -40,7 +43,7 @@ public class MembroDAOImplemente implements MembroDAO {
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Erro ao inserir Membro!");
+			System.out.println("Erro ao inserir Gestor!");
 		} finally {
 			try {
 				conn.close();
@@ -49,25 +52,25 @@ public class MembroDAOImplemente implements MembroDAO {
 			}
 		}
 		
-		return m;
+		return g;
 	}
 
+	
+
 	@Override
-	public Membro retornarMembroPorId(int id) {
+	public Gestor retornarGestorPorId(int id) {
 		conn = ConnectionFactory.getConnection();
-		Membro m = null;
+		Gestor g = null;
 		try {
-			String sql = "SELECT * FROM membro WHERE id = " + id;
-			
+			String sql = "select * from gestor where id = " + id;
 			Statement stmt = conn.createStatement();
 			ResultSet resultado = stmt.executeQuery(sql);
-			while (resultado.next()) {
-				m = new Membro();
-				m.setId(resultado.getInt("id"));
-				m.setNome(resultado.getString("nome"));
-				m.setProfissao(resultado.getString("profissao"));
-				m.setRendaMediaMensal(resultado.getDouble("rendaMediaMensal"));
-			}
+			
+			g = new Gestor();
+			g.setId(resultado.getInt("id"));
+			g.setId_gestao(resultado.getInt("id_gestao"));
+			g.setId_pessoa(resultado.getInt("id_pessoa"));
+			g.setCargo(CargoEnum.valueOf(resultado.getString("cargo")));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,24 +81,25 @@ public class MembroDAOImplemente implements MembroDAO {
 				e.printStackTrace();
 			}
 		}
-		return m;
+		return g;
+		
 	}
 
 	@Override
-	public void removerMembro(int id) {
+	public void removerGestor(int id) {
 		conn = ConnectionFactory.getConnection();
 		try {
 			Statement s = conn.createStatement();
-			String sql = "DELETE from membro where id = " +id;
+			String sql = "DELETE from gestor where id = " +id;
 			
 			s.executeUpdate(sql);
 		
-			System.out.println("Membro deletado com sucesso!!");
+			JOptionPane.showMessageDialog(null, "Gestor deletado com sucesso!!");
 			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("Erro ao deletar Membro!");
+			System.out.println("Erro ao deletar Gestor!");
 		} finally {
 			try {
 				conn.close();
@@ -104,24 +108,25 @@ public class MembroDAOImplemente implements MembroDAO {
 			}
 		}
 		
+		
 	}
 
 	@Override
-	public List<Membro> listaMembros() {
+	public List<Gestor> listaGestores() {
 		conn = ConnectionFactory.getConnection();
-		List<Membro> listaMembros = new ArrayList<>();
-		String sql = "SELECT * FROM membro";
+		List<Gestor> listaGestores = new ArrayList<>();
+		String sql = "SELECT * FROM gestor ";
+		System.out.println(sql);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet resultado = stmt.executeQuery(sql);
 			while (resultado.next()) {
-				Membro m = new Membro();
-				m = new Membro();
-				m.setId(resultado.getInt("id"));
-				m.setNome(resultado.getString("nome"));
-				m.setProfissao(resultado.getString("profissao"));
-				m.setRendaMediaMensal(resultado.getDouble("rendaMediaMensal"));
-				listaMembros.add(m);
+				Gestor g = new Gestor();
+				g.setId(resultado.getInt("id"));
+				g.setId_gestao(resultado.getInt("id_gestao"));
+				g.setId_pessoa(resultado.getInt("id_pessoa"));
+				g.setCargo(CargoEnum.valueOf(resultado.getString("cargo")));
+				listaGestores.add(g);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -133,24 +138,26 @@ public class MembroDAOImplemente implements MembroDAO {
 			}
 		}
 		
-		return listaMembros;
+		return listaGestores;
 	}
 
 	@Override
-	public List<Membro> BuscarPorNome(String nome) {
+	public List<Gestor> BuscarPorNome(String nome) {
 		conn = ConnectionFactory.getConnection();
-		List<Membro> listaMembros = new ArrayList<>();
-		String sql = "SELECT * FROM membro where nome like '%"+ nome +"%'";
+		List<Gestor> listaGestores = new ArrayList<>();
+		String sql = "SELECT * FROM gestor g inner join membro m on m.id = g.id_pessoa"
+				+ " where m.nome like '%"+ nome +"%'";
+		System.out.println(sql);
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet resultado = stmt.executeQuery(sql);
 			while (resultado.next()) {
-				Membro m = new Membro();
-				m.setId(resultado.getInt("id"));
-				m.setNome(resultado.getString("nome"));
-				m.setProfissao(resultado.getString("profissao"));
-				m.setRendaMediaMensal(resultado.getDouble("rendaMediaMensal"));
-				listaMembros.add(m);
+				Gestor g = new Gestor();
+				g.setId(resultado.getInt("id"));
+				g.setId_gestao(resultado.getInt("id_gestao"));
+				g.setId_pessoa(resultado.getInt("id_pessoa"));
+				g.setCargo(CargoEnum.valueOf(resultado.getString("cargo")));
+				listaGestores.add(g);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -162,7 +169,8 @@ public class MembroDAOImplemente implements MembroDAO {
 			}
 		}
 		
-		return listaMembros;
+		return listaGestores;
 	}
+	
 
 }

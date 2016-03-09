@@ -7,6 +7,8 @@ import br.edu.ifpi.associapp.modelo.Membro;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.smartcardio.CardException;
+
 import br.edu.ifpi.associapp.dao.ComunidadeDAO;
 import br.edu.ifpi.associapp.dao.ComunidadeJDBCDAO;
 import br.edu.ifpi.associapp.dao.MembroDAO;
@@ -29,15 +31,15 @@ public class Teste {
 //			c = dao.obter(2);
 //			System.out.println("Inseriu com sucesso. Id gerado:"+c.getNome());
 		
-			MembroDAO membroDAO = new MembroDAOImplemente();
-			
-			Membro m = new Membro();
-			m.setNome("Joana");
-			m.setSexo('M');
-			m.setProfissao("Dona do lar");
-			m.setRendaMediaMensal(300);
-			
-			m = membroDAO.inserirMembro(m);
+//			MembroDAO membroDAO = new MembroDAOImplemente();
+//			
+//			Membro m = new Membro();
+//			m.setNome("Joana");
+//			m.setSexo('M');
+//			m.setProfissao("Dona do lar");
+//			m.setRendaMediaMensal(300);
+//			
+//			m = membroDAO.inserirMembro(m);
 //			
 //			m = membroDAO.retornarMembroPorId(2);
 //			System.out.println(m.getNome());
@@ -57,7 +59,10 @@ public class Teste {
 //				System.out.println(m.getRendaMediaMensal());
 //			}
 //			
-		}
+			
+	}
+	
+	
 	
 
 }

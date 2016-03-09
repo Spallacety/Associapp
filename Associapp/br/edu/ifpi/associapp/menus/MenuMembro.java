@@ -15,7 +15,7 @@ public class MenuMembro {
 	
 	public static void menuMembro() {
 		String submenu ="1 - Adicionar Pessoa\n"
-				+ "2 - Consultar Pessoa\n"
+				+ "2 - Consultar Pessoa por nome\n"
 				+ "3 - Listar todas as Pessoas\n"
 				+ "4 - Remover Pessoa\n"
 				+ "0 - Retornar ao menu principal\n";

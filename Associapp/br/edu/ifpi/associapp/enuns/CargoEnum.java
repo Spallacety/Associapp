@@ -2,18 +2,25 @@ package br.edu.ifpi.associapp.enuns;
 
 public enum CargoEnum {
 	
-	PRESIDENTE(1),
-	VICE_PRESIDENTE(2),
-	TESOREIRO(3),
-	SECREARIO(4);
+	PRESIDENTE("Presidente"),
+	VICE_PRESIDENTE("Vice presidente"),
+	TESOREIRO("Tesoreiro"),
+	SECREARIO("Secretário");
 	
-	private int id;
+	private String id;
 
-	private CargoEnum(int id) {
+	private CargoEnum(String id) {
 		this.id = id;
 	}
-	public int getId(){
+	public String getId(){
 		return id;
+	}
+	
+	public static String retornaValores() {
+		return "1- PRESIDENTE\n"
+				+ "2-VICE PRESIDENTE\n"
+				+ "3- TESOUREIRO\n"
+				+ "4-SECRETARIO";
 	}
 	
 

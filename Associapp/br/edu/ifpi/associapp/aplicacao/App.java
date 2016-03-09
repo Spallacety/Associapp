@@ -6,6 +6,7 @@ import javax.swing.UIManager;
 import br.edu.ifpi.associapp.dao.ComunidadeDAO;
 import br.edu.ifpi.associapp.dao.ComunidadeJDBCDAO;
 import br.edu.ifpi.associapp.enuns.TipoDeComunidadeEnum;
+import br.edu.ifpi.associapp.menus.MenuGestor;
 import br.edu.ifpi.associapp.menus.MenuMembro;
 import br.edu.ifpi.associapp.modelo.Comunidade;
 import br.edu.ifpi.associapp.modelo.Endereco;
@@ -23,6 +24,7 @@ public class App {
 		String menu = "#### ASSOCIAPP ####\n\n"
 				+ "1- Menu comunidade\n"
 				+ "2- Menu Membro\n"
+				+ "3- Menu Gestor\n"
 				+ "0- sair ";
 		
 		while(true){
@@ -35,6 +37,9 @@ public class App {
 			case 2:
 				MenuMembro.menuMembro();
 				break;	
+			case 3:
+				MenuGestor.menuGestor();;
+				break;
 			case 0:
 				JOptionPane.showMessageDialog(null, "Volte Sempre!");
 				break;
@@ -42,8 +47,8 @@ public class App {
 				JOptionPane.showMessageDialog(null, "Opção Invalida!");
 				break;
 			}
+			
 			if (op == 0)
-				
 				break;
 			
 			
